@@ -1,0 +1,390 @@
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #f5f5f5;
+color: #333;
+}
+header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 15px 40px;
+background: #ffffff;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+position: sticky;
+top: 0;
+z-index: 100;
+}
+.brand {
+font-size: 1.5rem;
+font-weight: bold;
+color: #0077cc;
+}
+nav a {
+margin-left: 25px;
+text-decoration: none;
+font-size: 1rem;
+color: #333;
+transition: 0.2s;
+}
+nav a:hover {
+color: #0077cc;
+}
+.hero {
+padding: 80px 40px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+}
+.hero-text {
+max-width: 45%;
+}
+.hero-text h1 {
+font-size: 2.5rem;
+margin-bottom: 15px;
+}
+.hero-text p {
+font-size: 1.2rem;
+line-height: 1.5;
+}
+.hero img {
+max-width: 40%;
+border-radius: 10px;
+}
+.btn-agendar {
+display: inline-block;
+margin-top: 25px;
+background: #0077cc;
+padding: 15px 25px;
+color: white;
+text-decoration: none;
+font-size: 1.1rem;
+font-weight: bold;
+border-radius: 8px;
+transition: 0.2s;
+}
+.btn-agendar:hover {
+background: #005fa3;
+}
+
+/* ============================= */
+/*      SECCIÓN DE INFORMACIÓN   */
+/* ============================= */
+.info-section {
+    padding: 60px 40px;
+    background: #ffffff;
+    margin-top: 40px;
+}
+.info-section h2 {
+    font-size: 2rem;
+    color: #0077cc;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.info-section > p {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+.service {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    flex-wrap: wrap;
+}
+
+/* Intercalar imagen a la derecha en servicios pares */
+.service:nth-child(even) {
+    flex-direction: row-reverse;
+
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    flex-wrap: wrap;
+}
+.service img {
+    width: 180px;
+    height: auto;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+.service h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #000000;
+}
+.service p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Animación al aparecer */
+.service {
+    /* ya no se anima automáticamente al cargar */
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Solo reproducir la animación cuando se agrega la clase .visible */
+.service.visible {
+    animation: fadeInUp 0.8s forwards;
+}
+
+/* Retener los delays pero solo cuando está visible */
+.info-section .service.visible:nth-child(odd) {
+    animation-delay: 0.2s;
+}
+.info-section .service.visible:nth-child(even) {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover destacado */
+.service:hover {
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    transform: scale(1.01);
+    transition: 0.25s ease;
+}
+
+/* Patrón derecha-izquierda ya activo con nth-child(even) */
+.service:nth-child(even) img {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+/* ============================= */
+/* SECCIÓN AGENDAR */
+/* ============================= */
+.agendar-section {
+padding: 60px 40px;
+background: #ffffff;
+margin-top: 40px;
+}
+.agendar-section h2 {
+font-size: 2rem;
+text-align: center;
+color: #0077cc;
+margin-bottom: 10px;
+font-weight: 1000;
+}
+.agendar-section > p {
+text-align: center;
+font-size: 1.1rem;
+max-width: 700px;
+margin: 0 auto 40px auto;
+line-height: 1.6;
+}
+.agendar-form {
+max-width: 600px;
+margin: 0 auto;
+display: flex;
+flex-direction: column;
+gap: 20px;
+background: #f9f9f9;
+padding: 30px;
+border-radius: 12px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.agendar-form label {
+font-size: 1rem;
+font-weight: bold;
+color: #333;
+}
+.agendar-form input,
+.agendar-form textarea {
+width: 100%;
+padding: 12px;
+border-radius: 8px;
+border: 1px solid #ccc;
+font-size: 1rem;
+transition: border 0.2s, box-shadow 0.2s;
+font-family: inherit;
+}
+.agendar-form input:focus,
+.agendar-form textarea:focus {
+border-color: #0077cc;
+box-shadow: 0 0 5px rgba(0,119,204,0.3);
+outline: none;
+}
+.agendar-form textarea {
+resize: vertical;
+min-height: 120px;
+}
+.btn-submit {
+background: #0077cc;
+color: white;
+padding: 15px;
+border: none;
+border-radius: 8px;
+font-size: 1.1rem;
+font-weight: bold;
+cursor: pointer;
+transition: 0.2s;
+}
+.btn-submit:hover {
+background: #005fa3;
+}
+
+/* ============================= */
+/*      SECCIÓN DE CONTACTO      */
+/* ============================= */
+.contact-section {
+    padding: 60px 40px;
+    background: #ffffff;
+    margin-top: 40px;
+    text-align: center;
+}
+.contact-section h2 { font-size: 2rem; color: #0077cc; margin-bottom: 10px; }
+.contact-section p { max-width: 800px; margin: 0 auto 20px; font-size: 1.1rem; color: #333; }
+
+.contact-grid {
+    display: flex;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 20px auto 0;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.contact-card {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 320px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    text-align: left;
+}
+.contact-card h3 { margin-top: 0; color:#000; font-size:1.2rem; }
+.contact-list { list-style: none; padding: 0; margin: 10px 0 0; }
+.contact-item { margin-bottom: 10px; font-size:1rem; }
+.contact-item a { color: #0077cc; text-decoration: none; }
+.contact-item a:hover { text-decoration: underline; }
+
+.social-links { display: flex; flex-direction: column; gap: 10px; }
+.social-links a { color:#333; text-decoration:none; font-weight:600; }
+.social-links a:hover { color:#0077cc; }
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .service {
+        flex-direction: column;
+        text-align: center;
+    }
+    .service img {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    .contact-grid { flex-direction: column; align-items: center; }
+    .contact-card{ width: 100%; max-width: 480px; }
+}
+
+/* Animación para la sección principal (hero) */
+.hero {
+    /* medir desde el mismo comportamiento que .service */
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* cuando se agrega la clase visible reproducimos fadeInUp */
+.hero.visible {
+    animation: fadeInUp 0.8s forwards;
+}
+
+/* animar subelementos con pequeños delays para mejor efecto */
+.hero .hero-text,
+.hero .mini-poster {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.hero.visible .hero-text {
+    animation: fadeInUp 0.8s forwards;
+    animation-delay: 0.12s;
+}
+
+.hero.visible .mini-poster {
+    animation: fadeInUp 0.8s forwards;
+    animation-delay: 0.28s;
+}
+
+/* ============================= */
+/*         SECCIÓN DE FOOTER         */
+/* ============================= */
+.site-footer {
+    background: #0b2540;
+    color: #fff;
+    padding: 36px 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 40px;
+}
+.site-footer .brand {
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+.site-footer p {
+    margin: 0 0 8px 0;
+    max-width: 320px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+.site-footer h4 {
+    margin: 0 0 8px 0;
+    color: #cfe8ff;
+    font-size: 1rem;
+}
+.footer-contact { list-style: none; padding: 0; margin: 0; }
+.footer-contact li { margin-bottom: 6px; font-size: 0.95rem; }
+.site-footer a {
+    color: #bfe1ff;
+    text-decoration: none;
+}
+.site-footer a:hover { color: #fff; text-decoration: underline; }
+
+.footer-social { display: flex; flex-direction: column; gap: 8px; }
+.footer-bottom {
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 18px;
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.85);
+}
+.back-to-top {
+    color: #bfe1ff;
+    font-weight: 600;
+}
+.back-to-top:hover { color: #fff; }
+
+@media (max-width: 768px) {
+    .site-footer { padding: 24px; flex-direction: column; align-items: center; text-align: center; }
+    .site-footer .footer-left,
+    .site-footer .footer-center,
+    .site-footer .footer-right { width: 100%; max-width: 560px; }
+    .footer-bottom { flex-direction: column; gap: 8px; }
+}

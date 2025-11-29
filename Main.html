@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css">
+    <title>TestCo - Sitio Oficial</title>
+</head>
+<body>
+    <header>
+        <div class="brand">TestCo</div>
+        <nav>
+            <a href="#info">Información</a>
+            <a href="#contacto">Contacto</a>
+            <a href="#agendar">Agendar Revisión</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1> Bienvenido a TestCo</h1>
+            <p>Somos especialistas en servicios técnicos, diagnósticos y revisiones profesionales para garantizar la seguridad y funcionamiento óptimo de tus equipos.</p>
+            <a class="btn-agendar" href="#agendar">Agendar revisión</a>
+        </div>
+        <img src="assets/tecnico-reparacion-laptops-2.jpg" alt="Imagen Principal" class="mini-poster">
+    </section>
+    <script>
+      // Si hay un hash en la URL, lo quitamos para evitar el salto automático al cargar
+      if (location.hash) {
+        history.replaceState(null, document.title, location.pathname + location.search);
+      }
+      // Asegurar que al cargar se muestre la sección ".hero"
+      window.addEventListener('load', function() {
+        window.scrollTo(0, 0);
+        var hero = document.querySelector('.hero');
+        if (hero) {
+          hero.scrollIntoView({ behavior: 'auto', block: 'start' });
+          // Añadir la clase visible para reproducir la animación (igual que .service)
+          // pequeña demora para que el scroll inicial se aplique antes de animar
+          setTimeout(function(){ hero.classList.add('visible'); }, 50);
+        }
+      });
+    </script>
+
+    <!-- Añadir este script al final del body para activar animaciones al entrar en vista -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var services = document.querySelectorAll('.info-section .service');
+
+        if ('IntersectionObserver' in window) {
+          var observer = new IntersectionObserver(function(entries, obs) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                obs.unobserve(entry.target); // animar solo una vez
+              }
+            });
+          }, { threshold: 0.15 });
+
+          services.forEach(function(s) { observer.observe(s); });
+        } else {
+          // Fallback simple para navegadores sin IntersectionObserver
+          function check() {
+            services.forEach(function(s) {
+              if (s.classList.contains('visible')) return;
+              var rect = s.getBoundingClientRect();
+              if (rect.top < window.innerHeight * 0.85) s.classList.add('visible');
+            });
+          }
+          check();
+          window.addEventListener('scroll', check, { passive: true });
+          window.addEventListener('resize', check);
+        }
+      });
+    </script>
+    <section id="info" class="info-section">
+        <h1>Nuestros Servicios</h1>
+        <div class="service">
+            <img src="assets/descarga.jpeg" alt="Computadores">
+            <div>
+                <h2>Arreglo y mantención de computadoras y notebooks</h2>
+                <h4>Diagnóstico completo, limpieza, optimización y reparación de equipos personales y de trabajo.</h4>
+            </div>
+        </div>
+
+        <div class="service">
+            <img src="assets\electronica.jpeg" alt="Electrónica">
+            <div>
+                <h2>Arreglo de dispositivos electrónicos varios</h2>
+                <h4>Soluciones rápidas y precisas para dispositivos electrónicos de todo tipo.</h4>
+            </div>
+        </div>
+
+        <div class="service">
+            <img src="assets\desarrollo de productos.jpeg" alt="Proyectos a medida">
+            <div>
+                <h2>Proyectos a medida</h2>
+                <h4>Desarrollo de proyectos personalizados según las necesidades específicas de cada cliente.</h4>
+            </div>
+        </div>
+
+        <div class="service">
+            <img src="assets\diseño softaware.jpeg" alt="Software">
+            <div>
+                <h2>Diseño de software</h2>
+                <h4>Aplicaciones y herramientas diseñadas para mejorar productividad y automatizar procesos.</h4>
+            </div>
+        </div>
+    </section>
+
+    <section id="agendar" class="agendar-section">
+        <h2>Agendar Revisión</h2>
+        <p>Completa el siguiente formulario y nos pondremos en contacto contigo para coordinar la revisión.</p>
+
+        <form id="agendar-form" class="agendar-form">
+            <label>Tipo de dispositivo:</label>
+            <input name="tipo" type="text" placeholder="Notebook, PC, Ventilador, etc..." required>
+
+            <label>Marca:</label>
+            <input name="marca" type="text" placeholder="Ej: HP, Samsung, Asus..." required>
+
+            <label>Modelo:</label>
+            <input name="modelo" type="text" placeholder="Ej: Pavilion 15, Galaxy Tab A..." required>
+
+            <label>Describe el problema:</label>
+            <textarea name="problema" placeholder="Cuéntanos qué falla presenta..." required></textarea>
+
+            <label>Correo de contacto:</label>
+            <input name="email" type="email" placeholder="tuemail@ejemplo.com" required>
+
+            <button type="submit" class="btn-submit">Enviar solicitud</button>
+        </form>
+
+        <script>
+      document.getElementById('agendar-form').addEventListener('submit', async function(e){
+        e.preventDefault();
+        var form = e.target;
+        var data = new FormData(form);
+        try {
+          var btn = form.querySelector('button[type="submit"]');
+          btn.disabled = true; btn.textContent = 'Enviando...';
+          var res = await fetch('https://formspree.io/f/mblvwngq', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: data
+          });
+          var json = await res.json();
+          if (res.ok) {
+            alert('Solicitud enviada. Revisa tu correo.');
+            form.reset();
+          } else {
+            alert('Error: ' + (json.error || 'No se pudo enviar'));
+          }
+        } catch (err) {
+          alert('Error de red: ' + err.message);
+        } finally {
+          var btn = form.querySelector('button[type="submit"]');
+          btn.disabled = false; btn.textContent = 'Enviar solicitud';
+        }
+      });
+    </script>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="contact-section">
+      <h2>Contacto</h2>
+      <p>Si quieres una atención más detallada, presupuesto personalizado o priorizar tu reparación, escríbenos por cualquiera de los medios abajo y te responderemos a la brevedad.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Datos</h3>
+          <ul class="contact-list">
+            <li class="contact-item">📞 Tel: <a href="tel:+56912345678">telefono por conseguir</a></li>
+            <li class="contact-item">💬 WhatsApp: <a href="https://wa.me/56912345678" target="_blank" rel="noopener">Chat por WhatsApp</a></li>
+            <li class="contact-item">✉️ Email: <a href="mailto:tu.email@gmail.com">Email por decidir</a></li>
+            <li class="contact-item">⏰ Horario: Lun-Vie 9:00 - 18:00</li>
+          </ul>
+        </div>
+
+        <div class="contact-card">
+          <h3>Redes sociales</h3>
+          <div class="social-links">
+            <a href="https://facebook.com/tu-pagina" target="_blank" rel="noopener">🔵 Facebook</a>
+            <a href="https://instagram.com/tu-cuenta" target="_blank" rel="noopener">📸 Instagram</a>
+            <a href="https://twitter.com/tu-cuenta" target="_blank" rel="noopener">🐦 X</a>
+            <a href="https://www.linkedin.com/in/tu-perfil" target="_blank" rel="noopener">💼 LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-left">
+        <div class="brand">TestCo</div>
+        <p>Servicios técnicos, diagnósticos y revisiones profesionales. Atención rápida y soporte confiable.</p>
+      </div>
+
+      <div class="footer-center">
+        <h4>Contacto</h4>
+        <ul class="footer-contact">
+          <li>Tel: <a href="tel:+56912345678">telefono por conseguir</a></li>
+          <li>Email: <a href="mailto:tu.email@gmail.com">Email por decidir</a></li>
+          <li>Horario: Lun-Vie 4:30 - 21:00</li>
+        </ul>
+      </div>
+
+      <div class="footer-right">
+        <h4>Síguenos</h4>
+        <div class="footer-social">
+          <a href="https://facebook.com/tu-pagina" target="_blank" rel="nSoopener">Facebook</a>
+          <a href="https://instagram.com/tu-cuenta" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://twitter.com/tu-cuenta" target="_blank" rel="noopener">X</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <small>© <span id="year"></span> TestCo. Todos los derechos reservados.</small>
+        <a href="#" class="back-to-top">↑ Volver arriba</a>
+      </div>
+    </footer>
+
+    <script>
+      // actualizar año y comportamiento "volver arriba"
+      document.getElementById('year').textContent = new Date().getFullYear();
+      document.querySelectorAll('.back-to-top').forEach(function(el){
+        el.addEventListener('click', function(e){
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    </script>
+  </body>
+</html>
